@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.ScrollPane?>
+<?import java.lang.String?>
+<?import javafx.scene.layout.HBox?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<!-- GridPane 布局 -->
+<GridPane alignment="CENTER" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml"
+          fx:controller="com.derder.accounting.GUI.Accounting_interface" style="-fx-background-color: rgba(139, 69, 19, 0.5);">
+  <padding>
+    <Insets top="20" right="40" bottom="20" left="40"/>
+  </padding>
+
+  <!-- 中間部分 -->
+  <Pane GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-background-color: rgba(139, 69, 19, 0.5);">
+    <VBox alignment="CENTER" spacing="10" >
+      <padding>
+        <Insets top="20" right="10" bottom="10" left="10"/>
+      </padding>
+
+      <ImageView fitWidth="300" fitHeight="250" >
+        <Image url="@image-icon.jpg" />
+      </ImageView>
+      <Label fx:id="titleLabel" text="📋 Accounting" wrapText="true" styleClass="label-title"/>
+      <ChoiceBox fx:id="operationChoiceBox" onAction="#classSelect" prefHeight="40" prefWidth="300" styleClass="custom-choice-box">
+        <items>
+          <FXCollections fx:factory="observableArrayList">
+            <String fx:value="Add Expense"/>
+            <String fx:value="Delete Expense"/>
+            <String fx:value="Reset Expense"/>
+          </FXCollections>
+        </items>
+      </ChoiceBox>
+
+      <!-- 操作類型和支出類型選擇框 -->
+      <ChoiceBox fx:id="categoryChoiceBox" prefHeight="40" prefWidth="300" styleClass="custom-choice-box">
+        <items>
+          <FXCollections fx:factory="observableArrayList">
+            <String fx:value="food"/>
+            <String fx:value="clothes"/>
+            <String fx:value="education"/>
+            <String fx:value="entertainment"/>
+            <String fx:value="housing"/>
+            <String fx:value="tax"/>
+            <String fx:value="transportation"/>
+            <String fx:value="other"/>
+          </FXCollections>
+        </items>
+      </ChoiceBox>
+
+      <!-- 敘述、金額輸入框 -->
+      <TextField fx:id="descriptionField" prefWidth="300" prefHeight="40" styleClass="textbook"/>
+      <TextField fx:id="amountField" prefWidth="300" prefHeight="40" styleClass="textbook"/>
+
+      <!-- 添加和展示圓餅圖按鈕 -->
+      <Button fx:id="addButton" onAction="#ButtonClick" prefWidth="300" prefHeight="40" textAlignment="CENTER" />
+      <Button fx:id="showPieChartButton" onAction="#ShowClick" prefWidth="300" prefHeight="40" textAlignment="CENTER" text="Show PieChart"/>
+    </VBox>
+  </Pane>
+
+  <!-- 右半部的滑動視窗  -->
+  <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="0" hbarPolicy="NEVER">
+    <VBox spacing="5">
+      <HBox spacing="5">
+        <!-- 全部支出類型清單 -->
+        <VBox spacing="5" alignment="CENTER">
+          <Label fx:id="foodLabel" text="Food" styleClass="category-label"/>
+          <ListView fx:id="food" prefWidth="400" prefHeight="230" />
+        </VBox>
+
+        <VBox spacing="5" alignment="CENTER">
+          <Label fx:id="clothesLabel" text="Clothes" styleClass="category-label"/>
+          <ListView fx:id="clothes" prefWidth="400" prefHeight="230"/>
+        </VBox>
+      </HBox>
+
+      <HBox spacing="5">
+        <VBox spacing="5" alignment="CENTER">
+          <Label fx:id="educationLabel" text="Education " styleClass="category-label"/>
+          <ListView fx:id="education" prefWidth="400" prefHeight="230"/>
+        </VBox>
+
+        <VBox spacing="5" alignment="CENTER">
+          <Label fx:id="entertainmentLabel" text="Entertainment" styleClass="category-label"/>
+          <ListView fx:id="entertainment" prefWidth="400" prefHeight="230"/>
+        </VBox>
+      </HBox>
+
+      <HBox spacing="5">
+        <VBox spacing="5" alignment="CENTER">
+          <Label fx:id="housingLabel" text="Housing" styleClass="category-label"/>
+          <ListView fx:id="housing" prefWidth="400" prefHeight="230"/>
+        </VBox>
+
+        <VBox spacing="5" alignment="CENTER">
+          <Label fx:id="taxLabel" text="Tax" styleClass="category-label"/>
+          <ListView fx:id="tax" prefWidth="400" prefHeight="230"/>
+        </VBox>
+      </HBox>
+
+      <HBox spacing="5">
+        <VBox spacing="5" alignment="CENTER">
+          <Label fx:id="transportationLabel" text="Transportation" styleClass="category-label"/>
+          <ListView fx:id="transportation" prefWidth="400" prefHeight="230"/>
+        </VBox>
+
+        <VBox spacing="5" alignment="CENTER">
+          <Label fx:id="otherLabel" text="Other" styleClass="category-label"/>
+          <ListView fx:id="other" prefWidth="400" prefHeight="230"/>
+        </VBox>
+      </HBox>
+    </VBox>
+  </ScrollPane>
+</GridPane>

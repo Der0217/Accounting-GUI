@@ -1,0 +1,63 @@
+/* 右半部ListView設定 */
+.list-view {
+    -fx-alignment: center;
+    -fx-font-size: 20px;
+    -fx-pref-width: 450px;
+    -fx-pref-height: 230px;
+    -fx-background-color: rgba(255, 253, 208, 0.5);
+    -fx-control-inner-background: rgba(255, 253, 208, 0.5);
+    -fx-font-weight: bold;
+}
+/* 選擇框外框設定 */
+.custom-choice-box{
+    -fx-background-color: rgba(255, 253, 208, 0.5);
+    -fx-font-color: rgba(101, 67, 33,0.5)
+
+}
+/* 右半部清單Label設定 */
+.category-label {
+    -fx-alignment: center;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+/* 標題Label設定 */
+.label-title{
+    -fx-alignment: center;
+    -fx-font-size:45px;
+    -fx-font-weight: bold;
+    -fx-text-fill: rgba(211, 211, 211);
+    -fx-underline:true;
+}
+/* 輸入框設定 */
+.textbook {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: rgba(101, 67, 33, 0.5);
+    -fx-font-color: rgba(255, 253, 208, 0.5);
+    -fx-font-weight: bold;
+}
+
+/* 按鈕設定 */
+.button{
+    -fx-background-color: rgba(255, 253, 208, 0.5);
+    -fx-font-size: 20px;
+    -fx-font-color: rgba(255, 253, 208, 0.5);
+    -fx-font-weight: bold;
+
+}
+/* 主畫面設定 */
+.root {
+    -fx-background-color: rgba(211, 211, 211, 0.5);
+}
+
+/* 右邊滑動視窗 */
+.scroll-pane .viewport {
+    -fx-background-color: rgba(211, 211, 211, 0.5);
+}
+
+/* 選擇框的Label設定 */
+.custom-choice-box .label {
+    -fx-font-size: 20px;
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+}

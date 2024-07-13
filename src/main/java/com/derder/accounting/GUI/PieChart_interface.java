@@ -8,6 +8,7 @@ import java.util.List;
 public class PieChart_interface {
     @FXML
     private PieChart pieChart;
+
     public void setChartData(List<Double> total) {
         //圓餅圖設定
         System.out.println(total.toString());

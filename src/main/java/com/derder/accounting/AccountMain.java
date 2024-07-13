@@ -12,6 +12,7 @@ import java.util.Objects;
 
 public class AccountMain extends Application {
     static ExpenseManager manager = new ExpenseManager();
+
     static {
         // 關閉程式時將資料寫入txt
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
@@ -19,11 +20,12 @@ public class AccountMain extends Application {
             try {
                 manager.writeToTxt();
             } catch (IOException e) {
-                System.out.println("寫入錯誤");
+                System.out.println("Write error " + e.getMessage());
             }
             System.out.println("*系統* :已成功保存數據並關閉程式。");
         }));
     }
+
     @Override
     public void start(Stage stage) throws IOException {
 

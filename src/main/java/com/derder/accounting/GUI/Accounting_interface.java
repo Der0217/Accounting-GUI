@@ -18,16 +18,25 @@ import java.util.*;
 
 
 public class Accounting_interface {
-    @FXML private ListView<String> food, clothes, education, entertainment, housing, tax, transportation, other;
-    @FXML private Label titleLabel, foodLabel, clothesLabel, educationLabel, entertainmentLabel, housingLabel, otherLabel, taxLabel, transportationLabel, textType, textDescription;
-    @FXML private TextField amountField, descriptionField;
-    @FXML private List<ListView<String>> listViewData;
-    @FXML private ChoiceBox categoryChoiceBox, operationChoiceBox;
-    @FXML private Button addButton, showPieChartButton;
-    @FXML private ImageView itemImageView;
-    @FXML private TextInputDialog inputDialog;
+    @FXML
+    private ListView<String> food, clothes, education, entertainment, housing, tax, transportation, other;
+    @FXML
+    private Label titleLabel, foodLabel, clothesLabel, educationLabel, entertainmentLabel, housingLabel, otherLabel, taxLabel, transportationLabel, textType, textDescription;
+    @FXML
+    private TextField amountField, descriptionField;
+    @FXML
+    private List<ListView<String>> listViewData;
+    @FXML
+    private ChoiceBox categoryChoiceBox, operationChoiceBox;
+    @FXML
+    private Button addButton, showPieChartButton;
+    @FXML
+    private ImageView itemImageView;
+    @FXML
+    private TextInputDialog inputDialog;
     static ExpenseManager manager = new ExpenseManager();
-    private static final Map<String,ListView<String>> allListViewMap = new HashMap<>();
+    private static final Map<String, ListView<String>> allListViewMap = new HashMap<>();
+
     @FXML
     public void initialize() {
         // 初始化選擇框預設值和ListView映射
@@ -45,7 +54,7 @@ public class Accounting_interface {
         allListViewMap.put("other", other);
 
         //監聽ListView點擊
-        allListViewMap.forEach((s, stringListView)->
+        allListViewMap.forEach((s, stringListView) ->
                 deleteOrResetListView(stringListView));
 
 
@@ -55,8 +64,8 @@ public class Accounting_interface {
         try {
             manager.loadToTxt();
             updateList();
-        }catch (IOException e){
-            System.out.println("讀檔錯誤!");
+        } catch (IOException e) {
+            System.out.println("讀檔錯誤!" + e.getMessage());
         }
     }
 
@@ -64,7 +73,7 @@ public class Accounting_interface {
     @FXML
     private void ButtonClick() {
         // 添加支出
-        if(!amountField.getText().isEmpty() && !descriptionField.getText().isEmpty()){
+        if (!amountField.getText().isEmpty() && !descriptionField.getText().isEmpty()) {
             double textField1 = Double.parseDouble(amountField.getText());
             String type = categoryChoiceBox.getValue().toString();
             String textField2 = descriptionField.getText();
@@ -79,9 +88,9 @@ public class Accounting_interface {
     public void classSelect(ActionEvent actionEvent) {
         boolean isAddExpense = operationChoiceBox.getValue().toString().equals("Add Expense");
         //判斷選擇的項目去做動作
-        amountField.setPromptText(isAddExpense ?"Please input the amount.":"");
-        descriptionField.setPromptText(isAddExpense ?"Please input the description.":"");
-        addButton.setText(isAddExpense ?"ADD":"");
+        amountField.setPromptText(isAddExpense ? "Please input the amount." : "");
+        descriptionField.setPromptText(isAddExpense ? "Please input the description." : "");
+        addButton.setText(isAddExpense ? "ADD" : "");
         amountField.setDisable(!isAddExpense);
         descriptionField.setDisable(!isAddExpense);
         categoryChoiceBox.setDisable(!isAddExpense);
@@ -90,9 +99,9 @@ public class Accounting_interface {
     }
 
 
-    private void updateList(){
+    private void updateList() {
         // 更新所有ListView資料
-        for(ListView<String> a : allListViewMap.values()){
+        for (ListView<String> a : allListViewMap.values()) {
             a.getItems().clear();
             a.getItems().addAll(manager.show(a.getId()));
         }
@@ -107,15 +116,16 @@ public class Accounting_interface {
             }
         });
     }
+
     //選擇刪除或修改ListView
     private void deleteOrResetListView(ListView<String> listView) {
         listView.setOnMouseClicked(event -> {
             // 設定ListView的刪除或修改功能
-            if(event.getClickCount() == 2){
+            if (event.getClickCount() == 2) {
                 String selectMode = operationChoiceBox.getValue().toString();
-                if(selectMode.equals("Delete Expense")){
+                if (selectMode.equals("Delete Expense")) {
                     handleDelete(listView);
-                } else if (selectMode.equals("Reset Expense")){
+                } else if (selectMode.equals("Reset Expense")) {
                     handleReset(listView);
                 }
                 updateList();
@@ -123,11 +133,11 @@ public class Accounting_interface {
         });
     }
 
-    private void handleDelete(ListView<String> listView){
+    private void handleDelete(ListView<String> listView) {
         // 刪除選定的ListView項目
         String selectedItem = listView.getSelectionModel().getSelectedItem();
         int selectedIndex = listView.getSelectionModel().getSelectedIndex();
-        if (selectedItem != null && selectedIndex>=0) {
+        if (selectedItem != null && selectedIndex >= 0) {
             //出現警告視窗
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Delete Confirmation");
@@ -143,33 +153,34 @@ public class Accounting_interface {
             alert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
                     listView.getItems().remove(selectedItem);
-                    manager.removeExpense(listView.getId(),selectedIndex);
+                    manager.removeExpense(listView.getId(), selectedIndex);
                     updateList();
                 }
             });
         }
     }
 
-    private void handleReset(ListView<String> listView){
+    private void handleReset(ListView<String> listView) {
         // 修改選定的ListView項目
 
         //獲取選擇的ListView的內容跟Index
         String selectedItem = listView.getSelectionModel().getSelectedItem();
         int selectedIndex = listView.getSelectionModel().getSelectedIndex();
 
-        Optional<String> amountResult=showNumberIcInputDialog("Reset Expense",
-                "Enter Amount","Amount::",
+        Optional<String> amountResult = showNumberIcInputDialog("Reset Expense",
+                "Enter Amount", "Amount::",
                 "/com/derder/accounting/sack-dollar.png");
         amountResult.ifPresent(amount -> {
             //建立另外一個視窗用於輸入敘述，並回傳結果
-            Optional<String> descriptionResult=showInputDialog("Reset Expense","Enter Description","Description:","/com/derder/accounting/edit.png");
+            Optional<String> descriptionResult = showInputDialog("Reset Expense", "Enter Description", "Description:", "/com/derder/accounting/edit.png");
             //如果用戶都輸入則把該ListView做修改
             descriptionResult.ifPresent(description -> {
                 manager.reSetExpense(listView.getId(), selectedIndex, description, Double.parseDouble(amount));
             });
         });
     }
-    private Optional<String> showInputDialog(String title, String header, String content, String imagePath){
+
+    private Optional<String> showInputDialog(String title, String header, String content, String imagePath) {
         // 建立另一個對話視窗用來輸入敘述
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle(title);
@@ -185,7 +196,7 @@ public class Accounting_interface {
         return dialog.showAndWait();
     }
 
-    private Optional<String> showNumberIcInputDialog(String title, String header, String content, String imagePath){
+    private Optional<String> showNumberIcInputDialog(String title, String header, String content, String imagePath) {
         // 建立另一個對話視窗用來輸入敘述
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle(title);
@@ -207,6 +218,7 @@ public class Accounting_interface {
         //等待用戶輸入
         return dialog.showAndWait();
     }
+
     public void ShowClick() {
         try {
             // 加載新的 FXML 文件
@@ -225,7 +237,7 @@ public class Accounting_interface {
 
             // 顯示舞台
             dialogStage.showAndWait();
-        }catch (IOException e){
+        } catch (IOException e) {
             System.out.println("圓餅圖加載失敗");
         }
     }

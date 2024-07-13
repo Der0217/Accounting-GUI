@@ -1,9 +1,10 @@
 package com.derder.accounting.type;
 
+import java.io.Serializable;
 import java.text.MessageFormat;
 import java.time.LocalDate;
 
-public class ExpenseEntry {
+public class ExpenseEntry implements Serializable {
     //Time set
     private int year;
     private int month;
